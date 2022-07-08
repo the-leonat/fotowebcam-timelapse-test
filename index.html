@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Timelapse Test</title>
+    </head>
+    <body>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.2.1/fetch-jsonp.min.js"
+            integrity="sha512-n3xHXeYzqlEUG8U9rnLIfgLZLI4rNCCaREHODcSiroaI7DzSlk/zNu1XMblPKnRaoKjvgzthM0+64MdckkP9aw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script type="module">
+            import Sequencer from "./timelapse.js";
+            const { history } = await fetchJsonp(
+                "https://www.foto-webcam.eu/webcam/include/list.php?wc=saalfelden&ww=1"
+            ).then(function (response) {
+                return response.json();
+            });
+            const images = history.map(
+                (h) =>
+                    `https://www.foto-webcam.eu/webcam/saalfelden/${h}_la.jpg`
+            );
+            const s2 = Sequencer.make({
+                list: images,
+                playMode: "hover",
+            });
+        </script>
+    </body>
+</html>
